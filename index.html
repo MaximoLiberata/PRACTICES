@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/0d8456003b.js" crossorigin="anonymous"></script>
+    <script src="js/mask.js"></script>
+    <title>Formulario</title>
+</head>
+<body>
+    <script src="js/script.js" defer></script>
+
+    <main class="Cont_Form" id="Formulario">
+        <form action="" class="Form" id="Form">
+            
+            <div class="Form_Div">
+                <label for="Usuario" class="Form_Label">Usuario</label>
+                <div class="Form_Div_Input">
+                    <input type="text" name="Usuario" id="Usuario" class="Form_Input" placeholder="Felipe_1">
+                    <i class="fas fa-times-circle Form_Input_Icon"></i>
+                </div>
+                <p class="Form_Input_Error">El usuario debe tener al menos 4 a 16 caracteres sin espacios y solo puede contener numeros, letras y guión abajo</p>
+            </div>
+            
+            <div class="Form_Div">
+                <label for="Nombre" class="Form_Label">Nombre</label>
+                <div class="Form_Div_Input">
+                    <input type="text" name="Nombre" id="Nombre" class="Form_Input" placeholder="Juan Perez">
+                    <i class="fas fa-times-circle Form_Input_Icon"></i>
+                </div>
+                <p class="Form_Input_Error">El Nombre solo puede contener letras y espacio</p>
+            </div>
+
+            <div class="Form_Div">
+                <label for="Password" class="Form_Label">Contraseña</label>
+                <div class="Form_Div_Input">
+                    <input type="password" name="Password" id="Password" class="Form_Input">
+                    <i class="fas fa-times-circle Form_Input_Icon"></i>
+                    <i class="fas fa-eye Form_Input_Icon_See" id="PasswordSee"></i>
+                </div>
+                <p class="Form_Input_Error">La contraseña debe tener entre 4 a 16 caracteres sin espacios y puede contener (_ @ -).</p>
+            </div>
+
+            <div class="Form_Div" class="Form_Label">
+                <label for="PasswordRepeat" class="Form_Label">Repetir Contraseña</label>
+                <div class="Form_Div_Input">
+                    <input type="password" name="PasswordRepeat" id="PasswordRepeat" class="Form_Input">
+                    <i class="fas fa-times-circle Form_Input_Icon"></i>
+                </div>
+                <p class="Form_Input_Error">Ambas contraseñas deben ser iguales</p>
+            </div>
+
+            <div class="Form_Div" class="Form_Label">
+                <label for="Correo" class="Form_Label">Correo Electrónico</label>
+                <div class="Form_Div_Input">
+                    <input type="text" name="Correo" id="Correo" class="Form_Input" placeholder="Juan@gmail.com">
+                    <i class="fas fa-times-circle Form_Input_Icon"></i>
+                </div>
+                <p class="Form_Input_Error">El correo solo puede contener letras, numeros y puntos, y debe de tener un dominio (@gmail.com).</p>
+            </div>
+
+            <div class="Form_Div" class="Form_Label">
+                <label for="Telefono" class="Form_Label">Teléfono</label>
+                <div class="Form_Div_Input">
+                    <input type="text" name="Telefono" id="Telefono" class="Form_Input" placeholder="(809)-000-0000">
+                    <i class="fas fa-times-circle Form_Input_Icon"></i>
+                </div>
+                <p class="Form_Input_Error">El telefono debe contener 10 digitos</p>
+            </div>
+
+        </form>
+    </main>
+
+
+    <footer>
+        <div class="Cont_Button">
+            <label for="BtnEnviar" class="Button_Text">Enviar</label>
+            <input type="button" name="BtnEnviar" id="BtnEnviar" class="Button_Send">
+        </div>
+    </footer>
+    
+</body>
+</html>
