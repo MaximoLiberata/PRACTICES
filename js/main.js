@@ -10,8 +10,7 @@ var Form = document.getElementById("Form"),
     BtnEnviar = document.getElementById("BtnEnviar"),
     inputs = document.getElementsByTagName("input");
 
-window.onload = function(e)
-{
+window.onload = () => {
 
     for(i = 0; i < inputs.length; i++)
     {
@@ -19,7 +18,7 @@ window.onload = function(e)
     }
 
     var maskTelefono = {
-        mask: '(000)-000-0000'
+        mask: '000-000-0000'
     };
     
     IMask(Telefono, maskTelefono);
@@ -73,25 +72,20 @@ function ValidateRegex(element, condition)
 }
 
 
-Usuario.addEventListener("keyup", 
-function(e)
-{
+Usuario.addEventListener("keyup", (e) => {
     var regEx = /^[(a-z_*)|(0-9)*]{4,16}$/gi;
     ValidateRegex(Usuario, regEx);
 });
 
 
-Nombre.addEventListener("keyup", 
-function(e)
-{
+Nombre.addEventListener("keyup",  (e) => {
     var regex = /^[a-zA-Z]+[\sa-zA-Z]*$/g;
     ValidateRegex(Nombre, regex);
 });
 
 
-Password.addEventListener("keyup",
-function(e)
-{
+Password.addEventListener("keyup", (e) => {
+
     var text1 = Password.value,
         text2 = PasswordRepeat.value,
         regex = /^[(a-z_*@*-@)|(0-9)*]{4,16}$/gi;
@@ -109,9 +103,8 @@ function(e)
 });
 
 
-PasswordRepeat.addEventListener("keyup",
-function(e)
-{
+PasswordRepeat.addEventListener("keyup", (e) => {
+
     var text1 = Password.value,
         text2 = PasswordRepeat.value,
         regex = /^[(a-z_*@*-@)|(0-9)*]{4,16}$/gi;
@@ -129,44 +122,25 @@ function(e)
 });
 
 
-Correo.addEventListener("keyup",
-function(e)
-{
+Correo.addEventListener("keyup", (e) => {
     var regex = /^[\.*\-*\w]{1,60}@(?:[a-z]{2,20})\.(?:[a-z]){1,15}$/i;
     ValidateRegex(Correo, regex);
 });
 
 
-Telefono.addEventListener("keypress",
-function(e)
-{
+Telefono.addEventListener("keypress", (e) => {
     if(e.charCode == 46 || e.charCode == 8 || e.charCode == 37 || e.charCode == 39) { }
     else if(e.charCode < 48 || e.charCode > 57)
     {
         e.preventDefault();
     }
-    
-
 });
 
 
-Telefono.addEventListener("keydown",
-function(e)
-{
-    if(e.keyCode == 46 || e.keyCode == 8 || e.keyCode == 37 || e.keyCode == 39) { }
-    else if(this.value.length > 13)
-    {
-        e.preventDefault();
-    }
-});
-
-
-Telefono.addEventListener("keyup",
-function(e)
-{
+Telefono.addEventListener("keyup", (e) => {
     if(this.value != "")
     {
-        var regex = /^[0-9\-\(\)]{14}$/;
+        var regex = /^[0-9\-\(\)]{12}$/;
         ValidateRegex(Telefono, regex);
     }
     else
@@ -176,25 +150,20 @@ function(e)
 });
 
 
-PasswordSee.addEventListener("mousedown",
-function(e)
-{
+PasswordSee.addEventListener("mousedown", (e) => {
     Password.type = "text";
     PasswordRepeat.type = "text";
 });
 
 
-PasswordSee.addEventListener("mouseup",
-function(e)
-{
+PasswordSee.addEventListener("mouseup", (e) => {
     Password.type = "password";
     PasswordRepeat.type = "password";
 });
 
 
-BtnEnviar.addEventListener("click",
-function(e)
-{
+BtnEnviar.addEventListener("click", (e) => {
+
     var validar = true,
         array = new Array;
 
