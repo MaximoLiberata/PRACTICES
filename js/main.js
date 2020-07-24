@@ -1,21 +1,138 @@
 
-var Form = document.getElementById("Form"),
-    Usuario = document.getElementById("Usuario"),
-    Nombre = document.getElementById("Nombre"),
-    Password = document.getElementById("Password"),
-    PasswordRepeat = document.getElementById("PasswordRepeat"),
-    PasswordSee = document.getElementById("PasswordSee"),
-    Correo = document.getElementById("Correo"),
-    Telefono = document.getElementById("Telefono"),
-    BtnEnviar = document.getElementById("BtnEnviar"),
-    inputs = document.getElementsByTagName("input");
+const Form = document.getElementById('Form'),
+      Telefono = document.getElementById('Telefono'),
+      BtnEnviar = document.getElementById('BtnEnviar'),
+      inputs = document.querySelectorAll('#Form input'); /*Selecciona todos los elementos dentro del elemento input
+                                                           dentro del elemento con el id 'Form' (se debe de utilizar '#'
+                                                           para declarar el id y el 'All' significa un grupo de elementos
+                                                           esto devuelve un array de elementos)
+                                                         */
+
+
+const regExs = { //Creación de un array de objetos
+    usuario: /^[a-zA-Z_*0-9*]{4,16}$/, //Expresiones regulares
+    nombre: /^[a-zA-Z]+[\sa-zA-Z]*$/,
+    password: /^[a-zA-Z_*@*\-*0-9*]{4,16}$/,
+    correo: /^[\.*\-*\w]{1,60}@(?:[a-zA-Z]{2,20})\.(?:[a-zA-Z]){1,15}$/,
+    telefono: /^[0-9\-]{12}$/
+}
+
+
+const AddCorrectParcial = (elementID) => { // = (parameters) => 'function arrow'
+    let element = document.getElementById(elementID);
+    element.classList.remove('Form_Input_Write_Error');
+    element.parentElement.children[1].classList.remove('Form_Input_Icon_Error');
+    element.parentElement.parentElement.children[2].classList.remove('Form_Input_Error_Activo');
+
+    element.parentElement.children[1].className = 'fas fa-check-circle Form_Input_Icon';
+}
+
+const AddErrorParcial = (elementID) => {
+    let element = document.getElementById(elementID);
+    element.classList.add('Form_Input_Write_Error');
+    element.parentElement.children[1].className = 'fas fa-times-circle Form_Input_Icon';
+    element.parentElement.children[1].classList.add('Form_Input_Icon_Error');
+}
+    
+const AddCorrect = (elementID) => {
+    let element = document.getElementById(elementID);
+    element.classList.remove('Form_Input_Write_Error');
+    element.parentElement.children[1].classList.remove('Form_Input_Icon_Error');
+    element.parentElement.parentElement.children[2].classList.remove('Form_Input_Error_Activo');
+    element.parentElement.children[1].className = 'fas fa-check-circle Form_Input_Icon';
+    element.parentElement.children[1].classList.add('Form_Input_Icon_Valido');
+}
+
+const AddError = (elementID) => {
+    let element = document.getElementById(elementID);
+    element.classList.add('Form_Input_Write_Error');
+    element.parentElement.children[1].className = 'fas fa-times-circle Form_Input_Icon';
+    element.parentElement.children[1].classList.add('Form_Input_Icon_Error');
+    element.parentElement.parentElement.children[2].classList.add('Form_Input_Error_Activo');
+}
+
+
+const ValidatePasswords = () =>
+{
+    let password1 = document.getElementById('Password'),
+        password2 = document.getElementById('PasswordRepeat');
+        
+    if(password1.value != password2.value)
+    {
+        AddError(password2.id);
+    }
+    else
+    {
+        AddCorrect(password2.id);
+    }
+    
+}
+
+
+const ValidateRegex = (elementID, value, condition) => {
+    if(condition.test(value))
+        AddCorrect(elementID);
+    else
+        AddError(elementID);
+}
+
+
+ValidateInput = (e) =>
+{
+    let name = e.target.name,
+        ID = e.target.id,
+        value = e.target.value;
+
+    switch (name) {
+        case 'Usuario':
+        {
+            ValidateRegex(ID, value, regExs.usuario);
+            break;
+        }
+        case 'Nombre':
+        {
+            ValidateRegex(ID, value, regExs.nombre);
+            break;
+        }
+        case 'Password':
+        {
+            ValidateRegex(ID, value, regExs.password);
+            ValidatePasswords();
+            break;
+        }
+        case 'PasswordRepeat':
+        {
+            ValidateRegex(ID, value, regExs.password);
+            ValidatePasswords();
+            break;
+        }
+        case 'Correo':
+        {
+            ValidateRegex(ID, value, regExs.correo);
+            break;
+        }
+        case 'Telefono':
+        {
+            if(e.target.value != '')
+            {
+                ValidateRegex(ID, value, regExs.telefono);
+            }
+            else
+            {
+                AddCorrectParcial(ID);
+            }
+            break;
+        }
+    }
+}
+
 
 window.onload = () => {
 
-    for(i = 0; i < inputs.length; i++)
-    {
-        inputs[i].value = "";
-    }
+    inputs.forEach(input => {
+        input.value = '';
+        input.addEventListener('keyup', ValidateInput);
+    });
 
     var maskTelefono = {
         mask: '000-000-0000'
@@ -25,110 +142,7 @@ window.onload = () => {
 }
 
 
-function AddCorrectParcial(element)
-{
-    element.classList.remove("Form_Input_Write_Error");
-    element.parentElement.children[1].classList.remove("Form_Input_Icon_Error");
-    element.parentElement.parentElement.children[2].classList.remove("Form_Input_Error_Activo");
-
-    element.parentElement.children[1].className = "fas fa-check-circle Form_Input_Icon";
-}
-
-function AddErrorParcial(element)
-{
-    element.classList.add("Form_Input_Write_Error");
-    element.parentElement.children[1].className = "fas fa-times-circle Form_Input_Icon";
-    element.parentElement.children[1].classList.add("Form_Input_Icon_Error");
-}
-    
-function AddCorrect(element)
-{
-    element.classList.remove("Form_Input_Write_Error");
-    element.parentElement.children[1].classList.remove("Form_Input_Icon_Error");
-    element.parentElement.parentElement.children[2].classList.remove("Form_Input_Error_Activo");
-
-    element.parentElement.children[1].className = "fas fa-check-circle Form_Input_Icon";
-    element.parentElement.children[1].classList.add("Form_Input_Icon_Valido");
-}
-
-function AddError(element)
-{
-    element.classList.add("Form_Input_Write_Error");
-    element.parentElement.children[1].className = "fas fa-times-circle Form_Input_Icon";
-    element.parentElement.children[1].classList.add("Form_Input_Icon_Error");
-    element.parentElement.parentElement.children[2].classList.add("Form_Input_Error_Activo");
-}
-
-function ValidateRegex(element, condition)
-{
-    var text = element.value;
-
-    AddCorrect(element);
-
-    if(!condition.test(text))
-    {
-        AddError(element);
-    }
-}
-
-
-Usuario.addEventListener("keyup", (e) => {
-    var regEx = /^[(a-z_*)|(0-9)*]{4,16}$/gi;
-    ValidateRegex(Usuario, regEx);
-});
-
-
-Nombre.addEventListener("keyup",  (e) => {
-    var regex = /^[a-zA-Z]+[\sa-zA-Z]*$/g;
-    ValidateRegex(Nombre, regex);
-});
-
-
-Password.addEventListener("keyup", (e) => {
-
-    var text1 = Password.value,
-        text2 = PasswordRepeat.value,
-        regex = /^[(a-z_*@*-@)|(0-9)*]{4,16}$/gi;
-    ValidateRegex(Password, regex);
-
-    if(text1 != text2)
-    {
-        AddError(PasswordRepeat);
-    }
-    else
-    {
-        AddCorrect(PasswordRepeat);
-    }
-
-});
-
-
-PasswordRepeat.addEventListener("keyup", (e) => {
-
-    var text1 = Password.value,
-        text2 = PasswordRepeat.value,
-        regex = /^[(a-z_*@*-@)|(0-9)*]{4,16}$/gi;
-    ValidateRegex(PasswordRepeat, regex);
-
-    if(text1 != text2)
-    {
-        AddError(PasswordRepeat);
-    }
-    else
-    {
-        AddCorrect(PasswordRepeat);
-    }
-
-});
-
-
-Correo.addEventListener("keyup", (e) => {
-    var regex = /^[\.*\-*\w]{1,60}@(?:[a-z]{2,20})\.(?:[a-z]){1,15}$/i;
-    ValidateRegex(Correo, regex);
-});
-
-
-Telefono.addEventListener("keypress", (e) => {
+Telefono.addEventListener('keypress', (e) => {
     if(e.charCode == 46 || e.charCode == 8 || e.charCode == 37 || e.charCode == 39) { }
     else if(e.charCode < 48 || e.charCode > 57)
     {
@@ -137,63 +151,39 @@ Telefono.addEventListener("keypress", (e) => {
 });
 
 
-Telefono.addEventListener("keyup", (e) => {
-    if(this.value != "")
-    {
-        var regex = /^[0-9\-\(\)]{12}$/;
-        ValidateRegex(Telefono, regex);
-    }
-    else
-    {
-        AddCorrectParcial(Telefono);
-    }
+PasswordSee.addEventListener('mousedown', (e) => {
+    Password.type = 'text';
+    PasswordRepeat.type = 'text';
 });
 
 
-PasswordSee.addEventListener("mousedown", (e) => {
-    Password.type = "text";
-    PasswordRepeat.type = "text";
+PasswordSee.addEventListener('mouseup', (e) => {
+    Password.type = 'password';
+    PasswordRepeat.type = 'password';
 });
 
 
-PasswordSee.addEventListener("mouseup", (e) => {
-    Password.type = "password";
-    PasswordRepeat.type = "password";
-});
+BtnEnviar.addEventListener('click', (e) => {
 
+    var validar = true;
 
-BtnEnviar.addEventListener("click", (e) => {
+    inputs.forEach(input => { //Solo se hace el forEach a un array
 
-    var validar = true,
-        array = new Array;
-
-    for(i = 0; i < inputs.length; i++)
-    {
-        if(inputs[i].name != "BtnEnviar" && inputs[i].name != "Telefono" && inputs[i].value == "")
+        if(input.name != 'BtnEnviar' && input.name != 'Telefono' && input.value == '')
         {
-            array.push(inputs[i]);
+            AddErrorParcial(input.id);
             validar = false;
         }
-        else if(inputs[i].name != "BtnEnviar" && inputs[i].classList.contains("Form_Input_Write_Error"))
+        else if(input.name != 'BtnEnviar' && input.classList.contains('Form_Input_Write_Error'))
         {
-            if(!array.includes(inputs[i]))
-            {
-                array.push(inputs[i]);
-            }
             validar = false;
         }
-    }
+
+    });
     
     if(validar)
     {
         Form.submit();
-    }
-    else
-    {
-        for(i = 0; i < array.length; i++)
-        {
-            AddErrorParcial(array[i]);
-        }
     }
 
 });
