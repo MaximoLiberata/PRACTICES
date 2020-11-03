@@ -2,9 +2,9 @@
 const Form = document.getElementById('Form'),
       Telefono = document.getElementById('Telefono'),
       BtnEnviar = document.getElementById('BtnEnviar'),
-      inputs = document.querySelectorAll('#Form input'); /*Select all elements within input element and within element
-                                                           with id 'Form' ('#'  must be used to declare the id,
-                                                           and 'All' means a group of elements this returns an elements array)
+      inputs = document.querySelectorAll('#Form input'); /*Selecciona todos los elementos dentro del elemento input dentro del elemento con el id 'Form'
+                                                           (se debe de utilizar '#' para declarar el id y el 'All' significa un grupo de elementos esto 
+                                                           devuelve un array de elementos)
                                                          */
 
 
